@@ -1,10 +1,9 @@
 import numpy as np
 from numpy import ndarray
 from typing import Callable, List
+import matplotlib.pyplot as plt
 
-
-# derivative function
-def deriv()
+plt.style.use('fivethirtyeight')
 
 
 def square(x: ndarray) -> ndarray:
@@ -28,6 +27,16 @@ Array_function = Callable[[ndarray], ndarray]
 Chain = List[Array_function]
 
 
+# derivative function
+def deriv(func: Array_function,
+          input_: np.ndarray,
+          delta: float = 0.001) -> np.ndarray:
+    '''
+    Evaluates the derivative of a function "func" at every element
+    '''
+    return (func(input_ + delta) - func(input_ - delta)) / (delta * 2)
+
+
 # Chain Rule
 def chain_deriv_2(chain: Chain,
                   input_range: ndarray) -> ndarray:
@@ -47,3 +56,47 @@ def chain_deriv_2(chain: Chain,
     f1_of_x = f1(input_range)
 
     # f1'(x)
+    df1dx = deriv(f1, input_range)
+
+    # f2'(f1(x))
+    df2du = deriv(f2, f1_of_x)
+
+    return df2du * df1dx
+
+
+def chain_length_2(chain: Chain,
+                   x: ndarray) -> ndarray:
+    '''
+    Evaluates two functions in a row, in a "Chain"
+    '''
+
+    assert len(chain) == 2, "Length of input 'chain' should be 2"
+
+    f1 = chain[0]
+    f2 = chain[1]
+
+    return f2(f1(x))
+
+
+plot_range = np.linspace(-3, 3, 1000)
+
+chain_1 = [sigmoid, square]
+chain_2 = [square, sigmoid]
+
+# sigmoid(square(x))
+y1 = chain_deriv_2(chain_1, plot_range)
+y2 = chain_deriv_2(chain_2, plot_range)
+
+plt.subplot(1, 2, 1)
+plt.plot(plot_range, chain_length_2(chain_1, plot_range), label="f(x)")
+plt.plot(plot_range, y1, label="df/dx")
+plt.title("$f(x)=(\sigma(x))^2$")
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.plot(plot_range, chain_length_2(chain_2, plot_range), label="f(x)")
+plt.plot(plot_range, y2, label="df/dx")
+plt.title("$f(x)=\sigma(x^2)$")
+plt.legend()
+
+plt.show()

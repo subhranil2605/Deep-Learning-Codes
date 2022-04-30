@@ -10,3 +10,4 @@ def deriv(func: Callable[[np.ndarray], np.ndarray],
     Evaluates the derivative of a function "func" at every element
     '''
     return (func(input_ + delta) - func(input_ - delta)) / (delta * 2)
+
