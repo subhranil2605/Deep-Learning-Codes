@@ -2,6 +2,7 @@ from typing import Callable
 import numpy as np
 
 
+# derivative function
 def deriv(func: Callable[[np.ndarray], np.ndarray],
           input_: np.ndarray,
           delta: float = 0.001) -> np.ndarray:
