@@ -2,6 +2,7 @@ import numpy as np
 from fnd_01_derivative import *
 import matplotlib.pyplot as plt
 
+
 def chain_len_2_deriv(chain, x):
     f1 = chain[0]
     f2 = chain[1]
@@ -25,10 +26,7 @@ chain = [np.sin, np.cos]
 
 x = np.linspace(-10, 10, 1000)
 
-
 plt.plot(x, np.cos(np.sin(x)))
 plt.plot(x, chain_len_2_deriv(chain, x))
 
 plt.show()
-
-
