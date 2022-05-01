@@ -1,16 +1,4 @@
-from foundation.main import DeepLearningMath
-import numpy as np
-
-np.random.seed(565)
-
-X = np.random.randn(3, 3)
 
 
-def square(num):
-    return num ** 2
-
-
-print(X)
-D = DeepLearningMath()
-
-print(D.deriv(square, X))
+def deriv(func, x, delta = 0.001):
+	return (func(x + delta) - func(x-delta))/(2*delta)
