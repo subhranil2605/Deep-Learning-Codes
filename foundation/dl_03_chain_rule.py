@@ -37,7 +37,7 @@ def deriv(func: Array_function,
     return (func(input_ + delta) - func(input_ - delta)) / (delta * 2)
 
 
-# Chain Rule
+# Chain Derivative
 def chain_deriv_2(chain: Chain,
                   input_range: ndarray) -> ndarray:
     '''

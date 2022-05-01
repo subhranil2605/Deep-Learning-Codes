@@ -17,7 +17,7 @@ def deriv(func: Array_function,
 # derivative of the multiple input function
 def multiple_input_derivative(x: np.ndarray,
                               y: np.ndarray,
-                              sigma: Array_function) -> float:
+                              sigma: Array_function):
     '''
     Computes the derivative of this simple function with respect to both inputs
     '''
