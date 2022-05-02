@@ -1,8 +1,12 @@
+import sklearn.metrics
+
 from linear_regression.lr_08_train import train
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+
+from linear_regression.lr_10_predict import predict
 
 data_url = "http://lib.stat.cmu.edu/datasets/boston"
 raw_df = pd.read_csv(data_url, sep="\s+", skiprows=22, header=None)
@@ -23,7 +27,7 @@ print(X_train.shape)
 train_info = train(X_train, y_train,
                    n_iter=1000,
                    learning_rate=0.001,
-                   batch_size=40,
+                   batch_size=5,
                    return_losses=True,
                    return_weights=True,
                    seed=180708)
@@ -32,7 +36,8 @@ losses = train_info[0]
 weights = train_info[1]
 
 
-import matplotlib.pyplot as plt
+preds = predict(X_test, weights)
 
-plt.plot(list(range(1000)), losses)
-plt.show()
+print(f"Mean absolute error: {round(sklearn.metrics.mean_absolute_error(y_test, preds), 4)}")
+print(f"Root Mean squared error: {round(np.power(sklearn.metrics.mean_squared_error(y_test, preds), .5), 4)}")
+
