@@ -19,7 +19,7 @@ def forward_linear_regression(X_batch, y_batch, weights):
         'y': y_batch
     }
 
-    return loss, forward_info
+    return forward_info, loss
 
 
 
