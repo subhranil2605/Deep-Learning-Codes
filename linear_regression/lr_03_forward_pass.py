@@ -9,7 +9,7 @@ def forward_linear_regression(X_batch, y_batch, weights):
     P = N + B
 
     loss = np.mean(np.power(y_batch - P, 2))
-
+    
     data = {
         'X': X_batch,
         'N': N,
@@ -17,4 +17,4 @@ def forward_linear_regression(X_batch, y_batch, weights):
         'y': y_batch
     }
 
-    return loss, data
+    return data
