@@ -40,7 +40,7 @@ def train(X, y, n_iter=1000,
         forward_info, loss = forward_linear_regression(X_batch, y_batch, weights)
 
         if return_losses:
-            losses.append(loss)
+            losses.append(loss) 
 
         loss_grads = loss_gradients(forward_info, weights)
 
