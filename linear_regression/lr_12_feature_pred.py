@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 from linear_regression.lr_10_predict import predict
-
+import matplotlib.pyplot as plt
 
 data_url = "http://lib.stat.cmu.edu/datasets/boston"
 raw_df = pd.read_csv(data_url, sep="\s+", skiprows=22, header=None)
@@ -37,8 +37,18 @@ losses = train_info[0]
 weights = train_info[1]
 
 
-preds = predict(X_test, weights)
 
-print(f"Mean absolute error: {round(sklearn.metrics.mean_absolute_error(y_test, preds), 4)}")
-print(f"Root Mean squared error: {round(np.power(sklearn.metrics.mean_squared_error(y_test, preds), .5), 4)}")
+NUM = 40
+a = np.repeat(X_test[:, :-1].mean(axis=0, keepdims=True), NUM, axis=0)
+b = np.linspace(-1.5, 3.5, NUM).reshape(NUM, 1)
 
+test_feature = np.concatenate([a, b], axis=1)
+test_preds = predict(test_feature, weights)[:, 0]
+
+plt.scatter(X_test[:, 12], y_test)
+plt.plot(np.array(test_feature[:, -1]), test_preds, linewidth=2, c='orange')
+plt.ylim([6, 51])
+plt.xlabel("Most important feature (normalized)")
+plt.ylabel("Target/Predictions")
+plt.title("Most important feature vs. target and predictions,\n custom linear regression")
+plt.show()
