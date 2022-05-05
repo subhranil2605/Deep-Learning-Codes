@@ -7,7 +7,7 @@ def loss_gradients(data, weights):
     dLdP = - (data['y'] - data['P'])
 
     dPdM2 = np.ones_like(data['M2'])
-    dPdB2 = np.ones_like(data['B2'])
+    dPdB2 = np.ones_like(weights['B2'])
 
     dLdM2 = dLdP * dPdM2
 
@@ -17,7 +17,7 @@ def loss_gradients(data, weights):
 
     dLdW2 = np.dot(dM2dW2, dLdP)
 
-    dM2dO1 = np.transpose(data['W2'], (1, 0))
+    dM2dO1 = np.transpose(weights['W2'], (1, 0))
 
     dLdO1 = np.dot(dLdM2, dM2dO1)
 
@@ -26,7 +26,7 @@ def loss_gradients(data, weights):
     dLdN1 = dLdO1 * dO1dN1
 
     dN1dB1 = np.ones_like(weights['B1'])
-    dN1dM1 = np.ones_like(weights['M1'])
+    dN1dM1 = np.ones_like(data['M1'])
 
     dLdB1 = (dLdN1 * dN1dB1).sum(axis=0)
 

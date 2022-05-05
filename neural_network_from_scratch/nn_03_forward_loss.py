@@ -26,4 +26,4 @@ def forward_loss(X, y, weights):
         'y': y,
     }
 
-    return forward_info
+    return forward_info, loss
