@@ -39,6 +39,9 @@ weights = train_info[1]
 preds = predict(X_test, weights)
 print(f"Mean absolute error: {round(sklearn.metrics.mean_absolute_error(y_test, preds), 4)}")
 print(f"Root Mean squared error: {round(np.power(sklearn.metrics.mean_squared_error(y_test, preds), .5), 4)}")
+y_test_mean = np.round(y_test.mean(), 4)
+rmse = np.round(np.power(sklearn.metrics.mean_squared_error(y_test, preds), 0.5) / y_test_mean, 4)
+print(f"RMSE is {rmse * 100}% on average of y")
 
 plt.subplot(2, 1, 1)
 plt.plot(list(range(1000)), losses)
